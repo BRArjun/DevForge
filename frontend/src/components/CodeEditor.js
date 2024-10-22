@@ -302,40 +302,7 @@ const CodeEditor = () => {
             </button>
           </div>
         </Card>
-      <Card className="p-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-5 h-5" />
-              <h2 className="text-lg font-semibold">Output</h2>
-            </div>
-            <div className={`px-2 py-1 rounded-full text-sm ${
-              connectionStatus === 'connected' ? 'bg-green-500 text-white' :
-              connectionStatus === 'disconnected' ? 'bg-yellow-500 text-black' :
-              'bg-red-500 text-white'
-            }`}>
-              {connectionStatus.charAt(0).toUpperCase() + connectionStatus.slice(1)}
-            </div>
-          </div>
-          
-          <pre
-            ref={outputRef}
-            className="bg-black text-green-400 p-4 rounded-lg min-h-[200px] max-h-[400px] overflow-auto font-mono whitespace-pre-wrap"
-          >
-            {output}
-          </pre>
-
-          <div className="flex gap-2 mt-4">
-            <Input
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Enter input for the program..."
-              className="flex-grow"
-            />
-            <button onClick={sendInput} disabled={!isRunning} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Send Input
-            </button>
-          </div>
-        </Card>
+      
 
         {/* Terminal Card */}
         <Card className="p-4">
