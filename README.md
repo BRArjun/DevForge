@@ -60,6 +60,11 @@ cd frontend
 npm start
 ```
 
+## Done
+- [x] Basic Code Execution and Output Routing for Python
+- [x] Basic User Interface
+- [x] Basic File System implementation within the browser
+- [x] LLM Code Generation  
 ## 🤝 How to Contribute
 We welcome contributions from developers of all skill levels
 
