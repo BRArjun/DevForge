@@ -2,13 +2,13 @@ import asyncio
 import websockets
 import json
 import logging
-from runtime.py.py_runtime import DockerPythonRunner
-from runtime.cpp.cpp_runtime import DockerCppRunner
-from runtime.c.c_runtime import DockerCRunner
-from runtime.go.go_runtime import DockerGoRunner
-from runtime.java.java_runtime import DockerJavaRunner
-from runtime.js.js_runtime import DockerJavaScriptRunner
-from runtime.rust.rust_runtime import DockerRustRunner
+from containers.py.py_runtime import DockerPythonRunner
+from containers.cpp.cpp_runtime import DockerCppRunner
+from containers.c.c_runtime import DockerCRunner
+from containers.go.go_runtime import DockerGoRunner
+from containers.java.java_runtime import DockerJavaRunner
+from containers.js.js_runtime import DockerJavaScriptRunner
+from containers.rust.rust_runtime import DockerRustRunner
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
