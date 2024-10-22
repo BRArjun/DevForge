@@ -1,0 +1,9 @@
+{
+  "name": "js-test-program",
+  "version": "1.0.0",
+  "description": "Test program for Docker JavaScript runner",
+  "main": "testprogram.js",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
