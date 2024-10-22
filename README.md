@@ -44,6 +44,8 @@ Automatic error detection and logging
 Error analysis and suggestion generation
 Continuous improvement through feedback
 
+<img src="arch.png"></img>
+
 
 ## 🤝 How to Contribute
 We welcome contributions from developers of all skill levels
