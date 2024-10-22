@@ -47,6 +47,19 @@ Continuous improvement through feedback
 <img src="arch.png"></img>
 
 
+## 🚀 Getting Started
+
+run the server
+
+```bash
+python main.py
+```
+run the frontend
+```bash
+cd frontend
+npm start
+```
+
 ## 🤝 How to Contribute
 We welcome contributions from developers of all skill levels
 
