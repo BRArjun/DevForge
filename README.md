@@ -7,7 +7,7 @@ Welcome to DevForge, an advanced AI-powered Web-based development platform. DevF
 DevForge transforms natural language task descriptions into functional code while providing an integrated environment for execution, testing, and debugging. The platform aims to accelerate development workflows by automating routine coding tasks while maintaining developer control and code quality.
 
 
-## Workflow Process
+## ⚡ Workflow Process
 
 ### Task Input
 
