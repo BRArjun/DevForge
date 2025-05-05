@@ -44,7 +44,7 @@ Automatic error detection and logging
 Error analysis and suggestion generation
 Continuous improvement through feedback
 
-<img src="arch.png"></img>
+<img src="image.png"></img>
 
 
 ## 🚀 Getting Started
