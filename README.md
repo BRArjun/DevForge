@@ -44,6 +44,7 @@ Automatic error detection and logging
 Error analysis and suggestion generation
 Continuous improvement through feedback
 
+### Architecture
 <img src="image.png"></img>
 
 
