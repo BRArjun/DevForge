@@ -61,7 +61,7 @@ cd frontend
 npm start
 ```
 
-## Demo
+## 💻 Demo
 
 [![image](https://github.com/BRArjun/DevForge/blob/master/Screenshot%20from%202025-05-05%2009-45-12.png)](https://app.supademo.com/demo/cm772cy1l0iphqao1s6y5e8vo)
 
