@@ -1,0 +1,82 @@
+DevForge
+
+- A complete AI assisted, web IDE built with Streamlit complete with automated code generation,execution and debugging.
+- I was interested in AI agents so i ended up follwing an agentic approach while building this application
+
+- These are the agents that I built:
+	- Coder
+	- Decision_taker
+	- Planner
+	- Project_creator
+	- Researcher
+	
+- Specify prompts to have a specific format using Jinja2, the templating engine in Python, useful for enforcing a strict format to outputs.
+- Each agent has its own prompt.jinja2 file that specifies the template the LLM should follow while generating its responses.
+- The actual data generated from the LLM is filled into the fields specified in the agent's jinja template.
+
+Workflow:
+
+- Start with a user prompt and send the prompt into a decision taker agent.
+- This agent decides whether the user query is coding-related or just a general query.
+- For now, we only worked on coding queries and have not implemented the general queries completely.
+- Based on this decision, send the user prompt into a planning module.
+- The planning agent makes use of its own jinja template file to understand the response format.
+- It injects fields like external google search results into the prompt.
+- In the next step we send our plan into the keyword extractor.
+- I use the default Sentence-BERT model(all-MiniLM-L6-v2) under the hood to generate embeddings.
+- During the call to the keyword extractor, i send in a parameter called use_mmr = True.
+- This param is used to tell the model to use Maximal Marginal Relevance that works like below:
+	- Find the relevance of the candidate word compared to the query.
+	- Also find how similar each candidate item is to the items already selected.
+	- Then we assign weights to these terms, that represent how much we value relevance over diversity or vice versa.
+	- Select suitable candidate items.
+- The overall workflow for keyword extraction is:
+	- Compute input sentence embedding
+	- Generate potential keyword candidates
+	- Compute embeddings for each candidate
+	- Compare similarities between input and candidate embeddings using cosine sim
+	- Rank them and apply MMR
+- Next based on these keywords, generate google search queries by passing them into the researcher agent.
+- It makes an API call to the google search API, the query and num of results that you want to output, being the input parameters.
+- I use requests & BeautifulSoup to handle web browsing and getting the content of these search results.
+- Combine all this information and pass it onto the coder agent which calls the Gemini API to generate code following the jinja2 template.
+- The coder agent has the following input params:
+	- the step by step plan
+	- the user prompt
+	- the search results
+- I have implemented caching for all the above results to avoid redundant requests and responses and faster response times. 
+- Parse the different blocks of code generated in markdown style, and sanitize it to remove bad characters before displaying to the user.
+- Put this generated code into a user editable text editor interface.
+- From this point, the user has 4 options available:
+	1. Run the generated code on docker containers
+	2. If there are any errors in the code after running, send only the relevant parts from the raw error message back to the code gen model.
+	3. Make small local changes to the code using a RAG trained on the generated codebase.
+	4. Download the entire project with all files. 
+
+- To run the code in the docker container I follow these steps:
+	- Create a temporary directory that contains the generated code files and a Dockerfile that Gemini generates based on what language the code is written in
+	- Then i build a small docker image using this directory as my context
+	- Then i run this container and capture the output using stdout
+	- Finally i clean up this temp directory and remove the image.
+	
+- To implement code debugging, I followed these steps:
+	- I first capture the filename, line_number and error snippet lines from raw error logs using regex
+	- Then I check for what type of error it is (syntax error, or name error or any others..)
+	- Convert these entries into a python dictionary with the above fields as the keys to the dict
+	- Then finally add these entries into a double ended queue(deque) so the first error in the traceback appears last in the list
+	- Loop through the errors deque and send them to Gemini, along with it sending the error file content as well
+	- Then write these updates into the file
+
+- To make small changes to the code using a prompt, I did the following:
+	- Let the user select the file that he wants to make changes to
+	- I use the FAISS vector store since it can scale really well with large context data
+	- Convert the code into 384 dimensional embedding using SentenceTransformer
+	- Take the user prompt telling what to change in the file
+	- Pass this prompt into FAISS which then searches for the most similar code snippets to the user's prompt, using semantic similarity
+	- Finally make the call to the Gemini RAG with the following params:
+		- The original code
+		- The relevant snippets that we get from FAISS
+		- User prompt
+	- Let the user run this file on a docker container as before
+
+- Then if the user wants he can download the entire project preserving the entire file structure as it is
